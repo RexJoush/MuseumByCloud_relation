@@ -17,6 +17,58 @@ export function changeResourceByYaml(data) {
   })
 }
 
+export function changeServicesByYaml(data) {
+  return request({
+    url: baseUrl + '/common/changeServicesByYaml',
+    method: 'post',
+    data: {
+      yaml: data,
+    }
+  })
+}
+export function changeIngressesByYaml(data) {
+  return request({
+    url: baseUrl + '/common/changeIngressesByYaml',
+    method: 'post',
+    data: {
+      yaml: data,
+    }
+  })
+}
+export function changeDeploymentByYaml(data) {
+  return request({
+    url: baseUrl + '/common/changeDeploymentByYaml',
+    method: 'post',
+    data: {
+      yaml: data,
+    }
+  })
+}
+export function changeCrdByYaml(data) {
+  console.log("yaml", data);
+  return request({
+    url: baseUrl + '/common/changeResourceByYaml_v1beta',
+    method: 'post',
+    data: {
+      yaml: data,
+    }
+  })
+}
+
+//changeCrdObjectByYaml
+export function changeCrdObjectByYaml(data) {
+
+  const params = new URLSearchParams();
+  params.append("yaml", data.codeyaml);
+  params.append("crdName", data.crdname);
+
+  return request({
+    url: baseUrl + '/common/changeCrdObjectByYaml',
+    method: 'post',
+    data: params
+  })
+}
+
 export function getEventByInvolvedObjectUid(data) {
   return request({
     url: baseUrl + '/common/getEventByInvolvedObjectUid',

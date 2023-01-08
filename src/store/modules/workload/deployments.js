@@ -6,7 +6,16 @@
  * @LastEditors: Rex Joush
  * @LastEditTime: 2022-10-29 22:21:29
  */
-import { getAllDeployments, setReplica, getDeploymentByNameAndNamespace, getDeploymentYamlByNameAndNamespace, deleteDeploymentByNameAndNamespace, getDeploymentResources, getAllDeploymentsName } from '@/api/workload/deployments'
+import {
+  getAllDeployments,
+  setReplica,
+  getDeploymentByNameAndNamespace,
+  getDeploymentYamlByNameAndNamespace,
+  deleteDeploymentByNameAndNamespace,
+  getDeploymentResources,
+  getAllDeploymentsName,
+  changeDeploymentByYamlString
+} from '@/api/workload/deployments'
 import { getToken } from '@/utils/auth'
 
 const state = {
@@ -19,7 +28,7 @@ const state = {
 
 const mutations = {
   // 跳转 deployment 详情页面
-  TO_DEPLOYMENTS_DETIALS: (state, { deploymentName, deploymentNamespace }) => {
+  TO_DEPLOYMENTS_DETAILS: (state, { deploymentName, deploymentNamespace }) => {
     // 赋值
     state.deployment.deploymentName = deploymentName
     state.deployment.deploymentNamespace = deploymentNamespace
@@ -118,6 +127,20 @@ const actions = {
     })
   },
 
+  changeDeploymentByYamlString({ commit }, yamlData) {
+    return new Promise((resolve, reject) => {
+      changeDeploymentByYamlString(yamlData).then((response) => {
+        const { data } = response
+        if (!data) {
+          return reject('修改失败')
+        }
+        resolve(data)
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  },
+
   getAllDeploymentsName({ commit }, namespace) {
     return new Promise((resolve, reject) => {
       getAllDeploymentsName(namespace).then((response) => {
@@ -134,7 +157,7 @@ const actions = {
 
   // 点击名字进入详情页
   toDetails({ commit }, dep) {
-    commit('TO_DEPLOYMENTS_DETIALS', dep)
+    commit('TO_DEPLOYMENTS_DETAILS', dep)
   }
 }
 

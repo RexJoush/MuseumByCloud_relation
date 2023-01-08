@@ -77,3 +77,12 @@ export function getDaemonSetLogs(data) {
     }
   })
 }
+export function changeDaemonSetByYamlString(data) {
+  return request({
+    url: baseUrl + '/daemonSets/changeDaemonSetByYamlString',
+    method: 'post',
+    data: {
+      yaml: data
+    }
+  })
+}

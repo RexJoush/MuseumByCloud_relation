@@ -447,7 +447,7 @@ export default {
   props: ['name', 'namespace'],
   data() {
     return {
-      daemonSet: [],
+      daemonSet: {},
       pods: [],
       services: [],
       daemonSetName: '',
@@ -566,18 +566,17 @@ export default {
     //   sessionStorage.setItem("deploymentNamespace", this.$store.state.deployments.deployment.deploymentNamespace);
     //   this.deploymentNamespace = this.$store.state.deployments.deployment.deploymentNamespace;
     // }
-
     // 获取数据
     const nameAndNamespace = {
       // name: sessionStorage.getItem("deploymentName"),
       // namespace: sessionStorage.getItem("deploymentNamespace"),
-      name: this.name.split(',')[0],
-      namespace: this.name.split(',')[1]
+      name: this.$route.params.name.split(',')[0],
+      namespace: this.$route.params.name.split(',')[1]
     }
     this.$store
       .dispatch('daemonSets/getDaemonSetResources', nameAndNamespace)
       .then((res) => {
-        console.log(res)
+        console.log('res', res)
         this.daemonSet = res.data.daemonSet
         console.log(this.daemonSet)
 

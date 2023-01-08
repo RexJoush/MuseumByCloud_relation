@@ -339,7 +339,12 @@ export default {
         })
       this.loading = false
     },
-
+    goToDaemonSetsDetails: function(daemonSetName, daemonSetNamespace) {
+      this.$store.dispatch('daemonSets/toDetails', {
+        daemonSetName,
+        daemonSetNamespace
+      })
+    },
     /** 按命名空间查询 */
     // 当选择框聚焦时获取命名空间
     initNamespace() {
@@ -429,7 +434,7 @@ export default {
       })
         .then(() => {
           this.$store
-            .dispatch('common/changeResourceByYaml', this.codeYaml)
+            .dispatch('daemonSets/changeDaemonSetByYamlString', this.codeYaml)
             .then((res) => {
               switch (res.code) {
                 case 1200:

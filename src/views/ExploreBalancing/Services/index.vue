@@ -307,7 +307,7 @@ export default {
       })
         .then(() => {
           this.$store
-            .dispatch("common/changeResourceByYaml", this.codeYaml)
+            .dispatch("common/changeServicesByYaml", this.codeYaml)
             .then((res) => {
               switch (res.code) {
                 case 1200:

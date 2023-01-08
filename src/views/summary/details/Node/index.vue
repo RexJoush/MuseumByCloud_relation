@@ -596,6 +596,7 @@ export default {
         sessionStorage.getItem("nodeName")
       )
       .then((res) => {
+        console.log("usage", res)
         let cpu = this.node.status.allocatable.cpu.amount;
         let memory = this.node.status.allocatable.memory.amount;
         let cpuArr = [];
@@ -692,7 +693,7 @@ export default {
         console.log(res);
         this.pods = res.data;
         this.podsAmount = res.data.length;
-        
+
         this.total = res.data.length;
         this.currentPods = res.data.slice(0, 6);
       })

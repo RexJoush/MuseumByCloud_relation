@@ -125,8 +125,7 @@ export const constantRoutes = [
         component: () => import('@/views/workload/DaemonSets/details/index'),
         name: 'DaemonSet Details',
         meta: { title: '守护进程集详情', noCache: true, activeMenu: '/daemonsets' },
-        hidden: true,
-        props: true
+        hidden: true
       },
       {
         path: 'deployments',
@@ -354,17 +353,17 @@ export const constantRoutes = [
   },
 
   //负载预测
-  {
-    path: '/loadforecasting',
-    component: Layout,
-    redirect: '/loadforecasting',
-    children: [{
-      path: 'loadforecasting',
-      name: '负载预测',
-      component: () => import('@/views/LoadForecasting/index'),
-      meta: { title: '负载预测', icon: 'load-forecasting' }
-    }]
-  },
+  // {
+  //   path: '/loadforecasting',
+  //   component: Layout,
+  //   redirect: '/loadforecasting',
+  //   children: [{
+  //     path: 'loadforecasting',
+  //     name: '负载预测',
+  //     component: () => import('@/views/LoadForecasting/index'),
+  //     meta: { title: '负载预测', icon: 'load-forecasting' }
+  //   }]
+  // },
   //边缘节点
   {
     path: '/edge',
@@ -384,6 +383,16 @@ export const constantRoutes = [
         meta: { title: '边缘节点详情', noCache: true, activeMenu: '/edge' },
         hidden: true
       },
+    ]
+  },
+  {
+    path: 'external-link',
+    component: Layout,
+    children: [
+      {
+        path: 'http://172.18.7.41:30014',
+        meta: { title: '边缘计算平台', icon: 'link' }
+      }
     ]
   },
   // 创建资源

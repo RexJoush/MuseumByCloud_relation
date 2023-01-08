@@ -81,4 +81,13 @@ export function getAllDeploymentsName(data) {
   })
 }
 
+export function changeDeploymentByYamlString(data) {
+  return request({
+    url: baseUrl + '/deployments/changeDeploymentByYamlString',
+    method: 'post',
+    data: {
+      yaml: data
+    }
+  })
+}
 

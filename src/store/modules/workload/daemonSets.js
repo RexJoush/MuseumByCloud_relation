@@ -13,7 +13,7 @@ import {
   getDaemonSetYamlByNameAndNamespace,
   getDaemonSetResources,
   createOrReplaceDaemonSetByYaml,
-  getDaemonSetLogs
+  getDaemonSetLogs, changeDaemonSetByYamlString
 } from '@/api/workload/daemonSets'
 import { getToken } from '@/utils/auth'
 
@@ -28,7 +28,12 @@ const getDefaultState = () => {
 const state = getDefaultState()
 
 const mutations = {
-
+  // 跳转 deployment 详情页面
+  TO_DAEMON_SET_DETAILS: (state, { daemonSet }) => {
+    // 赋值
+    state.daemonSet.daemonSetName = daemonSet.name
+    state.daemonSet.daemonSetNamespace = daemonSet.namespace
+  }
 }
 
 const actions = {
@@ -135,6 +140,23 @@ const actions = {
       })
     })
   },
+
+  changeDaemonSetByYamlString({ commit }, yamlData) {
+    return new Promise((resolve, reject) => {
+      changeDaemonSetByYamlString(yamlData).then((response) => {
+        const { data } = response
+        if (!data) {
+          return reject('修改失败')
+        }
+        resolve(data)
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  },
+  toDetails({ commit }, dep) {
+    commit('TO_DAEMON_SET_DETAILS', dep)
+  }
 }
 
 export default {
